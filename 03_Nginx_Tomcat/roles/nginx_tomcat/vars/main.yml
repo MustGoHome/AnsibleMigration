@@ -1,0 +1,50 @@
+---
+# JDK
+packages:
+  - java-1.8.0-openjdk.x86_64
+  - gcc
+  - make
+  - pcre-devel
+  - zlib-devel
+  - openssl-devel
+  - openssl
+  - python3-pip
+
+# 시스템 계정
+users:
+  tomcat_user: tomcat
+  nginx_user: nginx
+
+# 소스 설치 딕셔너리
+source:
+  - src: https://downloads.apache.org/tomcat/tomcat-9/v9.0.105/bin/apache-tomcat-9.0.105.tar.gz
+    owner: "{{ users.tomcat_user }}"
+    group: "{{ users.tomcat_user }}"
+  - src: https://nginx.org/download/nginx-1.20.2.tar.gz
+    owner: "{{ users.nginx_user }}"
+    group: "{{ users.nginx_user }}"
+
+# 설치 디렉터리
+tomcat_file: /usr/local/apache-tomcat-9.0.105
+nginx_file: /usr/local/nginx-1.20.2
+
+# 톰캣 AJP
+# tomcat_secret: soldesk1.
+
+# Nginx 기본
+nginx_listen: 80
+nginx_name: localhost
+proxy_pass: http://localhost:8080 
+
+# SSL 인증서
+nginx_listen_ssl: 443
+
+ssl_crt_path: /etc/pki/tls/certs/httpd.crt
+ssl_key_path: /etc/pki/tls/private/httpd.key
+ssl_country: "KR"
+ssl_state: "AP Northeast"
+ssl_city: "Seoul"
+ssl_org: "Example Company"
+ssl_ou: "Example Unit"
+ssl_cn: "www3.example.com"
+ssl_email: "root@localhost"

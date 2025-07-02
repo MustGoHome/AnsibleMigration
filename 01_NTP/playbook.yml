@@ -1,0 +1,24 @@
+---
+- name: NTP 동기화
+  hosts: servers
+  vars:
+    host_timezone: Asia/Seoul
+  tasks:
+    #######################################
+    # 1. NTP 서버 동기화 - role
+    # 2. 타임 존 설정 - Asia/Seoul
+    #######################################
+    - name: 1. NTP 서버 동기화
+      ansible.builtin.import_role:
+        name: rhel-system-roles.timesync
+
+    - name: 2. 타임 존 설정
+      ansible.builtin.timezone:
+        name: "{{ host_timezone }}"
+      notify: Restart chronyd
+
+  handlers:
+    - name: Restart chronyd
+      ansible.builtin.systemd:
+        name: chronyd
+        state: restarted

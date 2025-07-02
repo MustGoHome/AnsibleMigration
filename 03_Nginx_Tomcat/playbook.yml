@@ -1,0 +1,50 @@
+---
+- name: Nginx & Tomcat 구축
+  hosts: webserver
+  tasks:
+    - name: Role - nginx_tomcat
+      ansible.builtin.include_role:
+        name: nginx_tomcat
+        ################################################################
+        # 1. 패키지 설치
+        #   - java-1.8.0-openjdk.x86_64gcc
+        #   - make
+        #   - pcre-devel
+        #   - zlib-devel
+        #   - openssl-devel
+        #   - openssl
+        #   - cryptography
+        #   - 
+        # 2. 시스템 계정 생성 - tomcat, nginx
+        # 3. 소스 다운로드 - tomcat(url), nginx(url)
+        # 4. 환경변수 등록 - /home/tomcat/.bashrc(tomcat)
+        # 5. 서비스 설치 - Nginx
+        #   - Nginx Configure
+        #   - Nginx Make
+        #   - Nginx 소유권 변경
+        # 6. 서비스 설정
+        #   - Tomcat: /usr/local/tomcat/conf/server.xml(jinja2)
+        #   - Nginx: /usr/local/nginx/conf/nginx.conf(jinja2)
+        # 7. Systemd 등록
+        #   - Tomcat: /usr/lib/systemd/system/tomcat.service(jinja2)
+        #   - Nginx: /usr/local/nginx/conf/nginx.conf(jinja2)
+        # 8. SSL 인증서 생성
+        #   - 개인키 생성
+        #   - 인증서 CSR
+        #   - Self-signed 인증서 생성
+        # 9. 방화벽 포트 등록 - http, https
+        ################################################################
+
+- name: 웹 테스트
+  hosts: localhost
+  tasks:
+    - name: 웹 요청
+      ansible.builtin.uri:
+        url: https://192.168.40.20:443
+        status_code: 200
+        validate_certs: false
+      register: output
+    
+    - name: 결과
+      ansible.builtin.debug:
+        var: output

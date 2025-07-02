@@ -1,0 +1,30 @@
+---
+- name: 1. 패키지 설치 - httpd
+  ansible.builtin.dnf:
+    name: httpd, mod_ssl
+    state: present
+
+- name: 2. 웹 설정 - /etc/httpd/conf/httpd.conf(jinja2)
+  ansible.builtin.template:
+    src: httpd.conf.j2
+    dest: /etc/httpd/conf/httpd.conf
+    owner: root
+    group: root
+    mode: '0644'
+  notify:
+    - Restart httpd
+
+- name: 2. 웹 설정 - /var/www/html/index.html
+  ansible.builtin.copy:
+    content: "Test page of {{ ansible_facts.fqdn }}"
+    dest: /var/www/html/index.html
+    owner: root
+    group: root
+    mode: '0644'
+
+- name: 3. 방화벽 포트 등록 - http
+  ansible.posix.firewalld:
+    service: http
+    permanent: true
+    immediate: true
+    state: enabled
