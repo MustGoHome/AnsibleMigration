@@ -1,0 +1,4 @@
+---
+# vars file for dns
+domain: example.com
+dns_server: 192.168.40.30

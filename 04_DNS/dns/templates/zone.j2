@@ -1,0 +1,20 @@
+$TTL 86400
+@       IN SOA  ns1.{{ domain }}. root.com. (
+                                        10      ; serial
+                                        1D      ; refresh
+                                        1H      ; retry
+                                        1W      ; expire
+                                        3H )    ; minimum
+                                        
+;; DNS Server
+{{ domain }}.            IN  NS  ns1.{{ domain }}.
+ns1.{{ domain }}.        IN  A   {{ ansible_default_ipv4.address }}
+
+;; DNS Domain
+www1                    IN  A   192.168.20.20
+www2                    IN  A   192.168.30.20
+www3                    IN  A   192.168.40.20
+www4                    IN  A   192.168.50.20
+www5                    IN  A   192.168.60.20
+www6                    IN  A   192.168.70.20
+www7                    IN  A   192.168.80.20

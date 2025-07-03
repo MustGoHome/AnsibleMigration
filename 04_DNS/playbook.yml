@@ -1,0 +1,36 @@
+---
+- name: DNS 구축
+  hosts: dnsserver
+  tasks:
+    - name: Role - dns
+      ansible.builtin.include_role:
+        name: dns
+      ######################################################
+      # 1. 패키지 설치 - bind, bind-utils
+      # 2. 서비스 설정
+      #   - /etc/named.conf(j2)
+      #   - /etc/named.rfc1912.zones(j2)
+      # 3. 정방향 존 파일 생성 - /var/named/{{ domain }}.zone
+      # 4. 방화벽 포트 등록 - dns
+      ######################################################
+
+- name: 네트워크 DNS 주소 변경
+  hosts: servers,localhost
+  vars_files:
+    - dns/vars/main.yml
+  tasks:
+    - name: DNS 서버 설정
+      community.general.nmcli:
+        conn_name: eth0
+        type: ethernet
+        dns4:
+          - "{{ dns_server }}"
+        dns4_search: "{{ domain }}"
+        state: present
+      notify: Restart network
+
+  handlers:
+    - name: Restart network
+      ansible.builtin.systemd:
+        name: NetworkManager
+        state: Restart
