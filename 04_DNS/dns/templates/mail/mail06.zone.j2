@@ -1,0 +1,14 @@
+$TTL 86400
+@       IN SOA  ns1.{{ mail06_domain }}. root.com. (
+                                        10      ; serial
+                                        1D      ; refresh
+                                        1H      ; retry
+                                        1W      ; expire
+                                        3H )    ; minimum
+;; DNS Server
+{{ mail06_domain }}.             IN  NS      ns1.{{ mail06_domain }}.
+ns1.{{ mail06_domain }}.         IN  A       {{ dns_server }}
+
+;; Mail Server
+{{ mail06_domain }}.             IN  MX 10   mail.{{ mail06_domain }}.
+mail                             IN  A       {{ mail06_server }}

@@ -48,3 +48,13 @@ zone "{{ domain }}" IN {
      type master;		
      file "{{ domain }}.zone";				
 };
+
+zone "{{ mail06_domain }}" IN {
+     type master;
+     file "{{ mail06_domain }}.zone";
+};
+
+zone "{{ mail07_domain }}" IN {
+     type master;
+     file "{{ mail07_domain }}.zone";
+};

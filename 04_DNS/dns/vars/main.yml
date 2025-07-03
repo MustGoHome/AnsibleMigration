@@ -2,3 +2,9 @@
 # vars file for dns
 domain: example.com
 dns_server: 192.168.40.30
+
+mail06_domain: mail06.com
+mail07_domain: mail07.com
+
+mail06_server: 192.168.70.20
+mail07_server: 192.168.80.20

@@ -1,7 +1,0 @@
----
-# handlers file for dns
-- name: Start named
-  ansible.builtin.systemd:
-    name: named
-    state: started
-    enabled: true
