@@ -1,0 +1,13 @@
+---
+- name: Start tomcat
+  ansible.builtin.systemd:
+    name: tomcat
+    state: started
+    enabled: true
+    daemon_reload: true
+
+- name: Start apache
+  ansible.builtin.systemd:
+    name: httpd
+    state: started
+    enabled: true
