@@ -8,3 +8,9 @@ mail07_domain: mail07.com
 
 mail06_server: 192.168.70.20
 mail07_server: 192.168.80.20
+
+ftp_server: 192.168.40.30
+
+ha_server: 100.64.1.65
+
+log_server: 192.168.50.30

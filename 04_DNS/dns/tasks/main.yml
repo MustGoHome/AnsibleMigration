@@ -32,7 +32,6 @@
     group: root
     mode: '0644'
     validate: "named-checkzone {{ domain }} %s"
-  notify: Restart named
 
 - name: 3. 메일 정방향 존 파일 생성
   ansible.builtin.template:
