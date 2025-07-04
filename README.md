@@ -4,3 +4,4 @@
 3. Nginx & Tomcat(HTTPS) 구축
 4. DNS 서버 구축
 5. Apache & Tomcat(HTTPS) 구축
+6. FTP 서버 구축

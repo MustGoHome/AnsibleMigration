@@ -1,0 +1,39 @@
+---
+# tasks file for ftp
+- name: 패키지 설치 - vsftpd, ftp
+  ansible.builtin.dnf:
+    name: [vsftpd, ftp]
+    state: present
+
+- name: 서비스 설정
+  ansible.builtin.template:
+    src: vsftpd.conf.j2
+    dest: /etc/vsftpd/vsftpd.conf
+    owner: root
+    group: root
+    mode: '0600'
+  loop:
+    - src: /etc/vsftpd/ftpusers
+      dest: /etc/vsftpd/vsftpd.conf
+    - src: ftpusers.j2
+      dest: /etc/vsftpd/ftpusers
+    - src: user_list.j2
+      dest: /etc/vsftpd/user_list
+    - src: chroot_list.j2
+      dest: /etc/vsftpd/chroot_list
+
+- name: 서비스 기동
+  ansible.builtin.systemd:
+    name: vsftpd
+    state: restarted
+    enabled: true
+
+- name: 방화벽 포트 등록
+  ansible.posix.firewalld:
+    port: "{{ item }}"
+    permanent: true
+    immediate: true
+    state: enabled
+  loop: 
+    - "{{ listen_port }}/tcp"
+    - 30000-30100/tcp

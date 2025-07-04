@@ -1,0 +1,6 @@
+---
+# vars file for ftp
+ftpd_banner: Welcome to Group03 FTP service.
+listen_port: 2121
+
+sub_user: fedora

@@ -1,0 +1,19 @@
+ftpd_banner=Welcome to Group03 FTP service.
+
+idle_session_timeout=600
+data_connection_timeout=120
+
+listen_port={{ listen_port }}
+
+userlist_deny=NO
+
+pasv_enable=YES
+pasv_min_port=30000
+pasv_max_port=30100
+
+chroot_local_user=YES
+allow_writeable_chroot=YES
+chroot_list_enable=YES
+chroot_list_file=/etc/vsftpd/chroot_list
+
+ftpd_banner={{ ftpd_banner }}
