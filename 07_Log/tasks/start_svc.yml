@@ -1,0 +1,6 @@
+- name: Starts the {{ svc }}
+  systemd:
+    name: "{{ svc }}"
+    state: started
+    enabled: true
+    daemon_reload: true
