@@ -1,0 +1,6 @@
+ha_bind: 80
+ha_node1: 192.168.40.20:80
+ha_node2: 192.168.40.30:80
+
+apache_listen: 80
+apache_name: www3.example.com:80

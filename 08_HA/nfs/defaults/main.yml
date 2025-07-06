@@ -1,0 +1,6 @@
+---
+nfs_directory: /www
+nfs_subnet: 192.168.40.0/24
+
+cgi_dir: /www/cgi-bin
+cgi_file: /www/cgi-bin/test.cgi

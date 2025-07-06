@@ -5,3 +5,4 @@
 4. DNS 서버 구축
 5. Apache & Tomcat(HTTPS) 구축
 6. FTP 서버 구축
+7. HA 서버 구축

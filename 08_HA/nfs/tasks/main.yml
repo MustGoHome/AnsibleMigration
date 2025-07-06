@@ -1,0 +1,39 @@
+---
+- name: 1. 패키지 설치 - nfs-utils
+  ansible.builtin.dnf:
+    name: nfs-utils
+    state: present
+
+- name: 2. 서비스 설정 - 공유 디렉터리 -> /www
+  ansible.builtin.file:
+    path: "{{ nfs_directory }}"
+    state: directory
+
+- name: 3. 서비스 설정 - NFS 공유 설정
+  ansible.builtin.lineinfile:
+    path: /etc/exports
+    line: "{{ nfs_directory }} {{ nfs_subnet }}(rw,no_root_squash,nohide,subtree_check)"
+
+- name: 4. 서비스 설정(1/2) - CGI 디렉터리 생성 -> /www/cgi-bin
+  ansible.builtin.file:
+    path: "{{ cgi_dir }}"
+    state: directory
+
+- name: 4. 서비스 설정(2/2) - .cgi 파일 생성 -> /www/cgi-bin/test.cgi(j2)
+  ansible.builtin.template:
+    src: test.cgi.j2
+    dest: "{{ cgi_file }}"
+    mode: '0555'
+
+- name: 5. 서비스 기동 - nfs-server
+  ansible.builtin.systemd:
+    name: nfs-server
+    state: started
+    enabled: true
+
+- name: 6. 방화벽 등록 - nfs
+  ansible.posix.firewalld:
+    service: nfs
+    permanent: true
+    state: enabled
+    immediate: true

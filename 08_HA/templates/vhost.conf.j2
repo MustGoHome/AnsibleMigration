@@ -1,0 +1,9 @@
+<VirtualHost *:80>
+ ServerName www1.example.com
+ DocumentRoot "/www"
+ <Directory /www>
+ Require all granted
+ AllowOverride none
+ </Directory>
+ ScriptAlias /cgi-bin /www/cgi-bin
+</VirtualHost>
